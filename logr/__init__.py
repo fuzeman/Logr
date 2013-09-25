@@ -25,6 +25,7 @@ import os
 import sys
 
 IGNORE = ()
+PY3 = sys.version_info[0] == 3
 
 
 class Logr(object):
@@ -67,7 +68,7 @@ class Logr(object):
     def get_logger_name():
         stack = inspect.stack()
 
-        for x in xrange(len(stack)):
+        for x in xrange_six(len(stack)):
             frame = stack[x][0]
             name = None
 
@@ -185,3 +186,16 @@ class LogrFormatter(logging.Formatter):
                 s = s + record.exc_text.decode(sys.getfilesystemencoding(),
                                                'replace')
         return s
+
+
+def xrange_six(start, stop=None, step=None):
+    if stop is not None and step is not None:
+        if PY3:
+            return range(start, stop, step)
+        else:
+            return xrange(start, stop, step)
+    else:
+        if PY3:
+            return range(start)
+        else:
+            return xrange(start)
