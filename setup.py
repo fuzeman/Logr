@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(name='Logr',
       packages=['logr'],
-      version='0.1',
+      version='0.2',
       description='Simple python logging wrapper',
       author='Dean Gardiner',
       author_email='gardiner91@gmail.com',

@@ -153,7 +153,10 @@ class LogrFormatter(logging.Formatter):
     LENGTH_LEVEL_NAME = 5
 
     def __init__(self, fmt=None, datefmt=None):
-        super(LogrFormatter, self).__init__(fmt, datefmt)
+        if sys.version_info[:2] > (2,6):
+            super(LogrFormatter, self).__init__(fmt, datefmt)
+        else:
+            logging.Formatter.__init__(self, fmt, datefmt)
 
     def usesTime(self):
         return True
