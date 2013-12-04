@@ -32,8 +32,11 @@ class Logr(object):
     loggers = {}
     handler = None
 
+    trace_origin = False
+    name = "Logr"
+
     @staticmethod
-    def configure(level=logging.WARNING, handler=None, formatter=None):
+    def configure(level=logging.WARNING, handler=None, formatter=None, trace_origin=False, name="Logr"):
         """Configure Logr
 
         @param handler: Logger message handler
@@ -51,6 +54,9 @@ class Logr(object):
         handler.setFormatter(formatter)
         handler.setLevel(level)
         Logr.handler = handler
+
+        Logr.trace_origin = trace_origin
+        Logr.name = name
 
     @staticmethod
     def configure_check():
@@ -85,6 +91,9 @@ class Logr(object):
 
     @staticmethod
     def get_logger_name():
+        if not Logr.trace_origin:
+            return Logr.name
+
         stack = inspect.stack()
 
         for x in xrange_six(len(stack)):
