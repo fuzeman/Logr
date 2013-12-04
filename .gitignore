@@ -3,3 +3,5 @@
 /Logr.egg-info
 
 *.pyc
+/build
+*.iml
